@@ -5,7 +5,7 @@ import {
   fetchAllProducts,
   fetchFilteredProducts,
 } from "../../redux/slices/productSlice";
-import ProductCard from "../../components/productComponents/productCard";
+import ProductCard from "../../components/productComponents/ProductCard";
 import Loading from "../../components/sharedComponents/Loading";
 
 const Products = () => {
