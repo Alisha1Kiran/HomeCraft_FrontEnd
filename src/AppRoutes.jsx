@@ -76,7 +76,7 @@ const AppRoutes = () => {
           element={<Products />}
         />
         <Route path="/view-product/:productName" element={<ProductDetails />} />
-        <Route path="/wishlist" element={<ProtectedRoute element={<Profile />} />} />
+        <Route path="/my-profile" element={<ProtectedRoute element={<Profile />} />} />
         {/* <Route path="/cart" element={<Cart />} />
         <Route path="/admin" element={<AdminDashboard />} /> */}
       </Routes>
