@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import { addToCart } from "../../redux/slices/cartSlice";
+import { addToWishlist, removeFromWishlist, fetchWishlist } from "../../redux/slices/wishlistSlice";
 import { fetchProductByName } from "../../redux/slices/productSlice";
 import getGuestId from "../../utils/getGuestId";
 import showToaster from "../../utils/showToaster";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const { productName } = useParams();
   const dispatch = useDispatch();
-  const { selectedProduct, status, error } = useSelector(
-    (state) => state.products
-  );
+  const { selectedProduct, status, error } = useSelector((state) => state.products);
   const { user } = useSelector((state) => state.auth);
+  const { items: wishlist } = useSelector((state) => state.wishlist);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isInWishlist, setIsInWishlist] = useState(false); // Moved here to ensure it's always executed
 
   useEffect(() => {
     if (productName) {
@@ -26,10 +27,17 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (selectedProduct?.images?.length) {
-      setCurrentIndex(0); // Reset to first image when product changes
+      setCurrentIndex(0);
     }
   }, [selectedProduct]);
 
+  useEffect(() => {
+    if (selectedProduct) {
+      setIsInWishlist(wishlist.some((item) => item._id === selectedProduct._id));
+    }
+  }, [wishlist, selectedProduct]);
+
+  // ** Move loading and error checks after hooks to avoid breaking hook order **
   if (status === "loading") return <p>Loading...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!selectedProduct) return <p>No product found.</p>;
@@ -37,15 +45,30 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     const user_id = user ? user._id : null;
     const guest_id = !user ? getGuestId() : null;
-
-    dispatch(
-      addToCart({ user_id, product_id: selectedProduct._id, quantity: 1, guest_id })
-    );
+    dispatch(addToCart({ user_id, product_id: selectedProduct._id, quantity: 1, guest_id }));
   };
 
-  const handleWishlistClick = () => {
-    !user && showToaster();
+  const handleWishlistClick = async () => {
+    if (!user) {
+      showToaster("Please log in to use wishlist");
+      return;
+    }
+
+    try {
+      if (isInWishlist) {
+        await dispatch(removeFromWishlist(selectedProduct._id));
+        toast.success("Removed Item from wishlist");
+        setIsInWishlist(false);
+      } else {
+        await dispatch(addToWishlist(selectedProduct._id));
+        toast.success("Added Item to wishlist");
+        setIsInWishlist(true);
+      }
+    } catch (error) {
+      toast.error(`Failed to update wishlist: ${error.message}`);
+    }
   };
+  
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -68,7 +91,7 @@ const ProductDetails = () => {
           alt={selectedProduct.name}
           className="w-full max-w-md rounded-lg shadow-md object-cover"
         />
-        
+
         {/* Carousel Buttons */}
         <button
           className="absolute left-3 top-1/2 transform -translate-y-1/2 glass text-white p-2 rounded-l-full"
@@ -102,7 +125,7 @@ const ProductDetails = () => {
       <div className="space-y-4 animate-slideInRight">
         <h1 className="text-3xl font-bold capitalize">{selectedProduct.name}</h1>
         <p className="text-lg font-semibold text-primary">{selectedProduct.price}/-</p>
-        
+
         <div className="flex gap-3 items-center">
           <button
             className="w-full py-2 bg-sky-700 font-bold text-lg cursor-pointer"
@@ -110,11 +133,12 @@ const ProductDetails = () => {
           >
             Add to cart
           </button>
+
           <button
             className="w-15 h-11 border-1 flex justify-center items-center cursor-pointer"
             onClick={handleWishlistClick}
           >
-            <Heart />
+            <Heart className={`w-6 h-6 ${isInWishlist ? " text-red-500" : "text-gray-500"}`} fill={isInWishlist ? "red" : "none"} />
           </button>
         </div>
 

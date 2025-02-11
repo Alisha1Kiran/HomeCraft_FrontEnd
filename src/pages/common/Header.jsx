@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <div>
       <div
-        className={`navbar ${theme === "dark" ? "bg-cyan-950" : "bg-gray-300"}`}
+        className={`navbar ${theme === "dark" ? "bg-cyan-950" : "bg-neutral-100"}`}
       >
         <div className="navbar-start md:hidden">
           {/*Fixed Drawer */}

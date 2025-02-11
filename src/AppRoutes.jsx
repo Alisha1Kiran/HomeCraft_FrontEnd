@@ -11,12 +11,21 @@ import Cart from "./pages/user/Cart";
 import ShopeAll from "./pages/user/ShopeAll";
 import Products from "./pages/user/Products";
 import ProductDetails from "./components/productComponents/ProductDetails";
+import Profile from "./pages/common/Profile";
 import Loading from "./components/sharedComponents/Loading";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, status } = useSelector((state) => state.auth);
+
+  const theme = useSelector((state) => state.theme.theme);
+
+  useEffect(() => {
+    // Set the theme immediately on page load
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   // Dispatch authentication check when the app loads
   useEffect(() => {
@@ -50,7 +59,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/wishlist" element={<ProtectedRoute element={<Wishlist />} />} />
         <Route path="/cart" element={<Cart />} />
         {/* <Route path="/shope-all" element={<ShopeAll />} /> */}
         <Route path="/items" element={<Products />} />
@@ -67,8 +76,8 @@ const AppRoutes = () => {
           element={<Products />}
         />
         <Route path="/view-product/:productName" element={<ProductDetails />} />
+        <Route path="/wishlist" element={<ProtectedRoute element={<Profile />} />} />
         {/* <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<AdminDashboard />} /> */}
       </Routes>
     </Router>

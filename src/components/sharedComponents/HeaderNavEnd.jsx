@@ -52,7 +52,7 @@ const HeaderNavEnd = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a>Profile</a>
+                <Link to="/my-profile">Profile</Link>
               </li>
               <li>
                 <a>Orders</a>
@@ -68,7 +68,7 @@ const HeaderNavEnd = () => {
         <Link to="/wishlist">
           <Heart />
         </Link>
-        <Link to="/wishlist" className="font-light">
+        <Link to="/wishlist" className="hidden font-light md:block">
           Wishlist
         </Link>
       </div>
@@ -78,7 +78,7 @@ const HeaderNavEnd = () => {
             <div className="indicator">
               <div className="flex flex-col justify-center items-center">
                 <ShoppingCart />
-                <div className="font-light">Cart</div>
+                <div className="hidden font-light md:block">Cart</div>
               </div>
               {showIndicator && (
                 <span className="badge badge-sm indicator-item">
