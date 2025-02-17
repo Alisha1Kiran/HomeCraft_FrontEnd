@@ -1,25 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 //Async thunk Fetching all products
-export const fetchAllProducts = createAsyncThunk(
-  "products/fetchAllProducts",
-  async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/products/viewAllProducts`
-      );
+// export const fetchAllProducts = createAsyncThunk(
+//   "products/fetchAllProducts",
+//   async () => {
+//     try {
+//       const response = await fetch(
+//         `${import.meta.env.VITE_API_BASE_URL}/products/viewAllProducts`
+//       );
 
-      if (!response) {
-        throw new Error("No items found");
-      }
+//       if (!response) {
+//         throw new Error("No items found");
+//       }
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return error.message || "Failed to fetch all products.";
-    }
-  }
-);
+//       const data = await response.json();
+//       return data;
+//     } catch (error) {
+//       return error.message || "Failed to fetch all products.";
+//     }
+//   }
+// );
 
 // Fetch Product By Name
 export const fetchProductByName = createAsyncThunk(
@@ -77,17 +77,17 @@ const productSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllProducts.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.items = action.payload; // Store fetched products
-      })
-      .addCase(fetchAllProducts.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      })
+      // .addCase(fetchAllProducts.pending, (state) => {
+      //   state.status = "loading";
+      // })
+      // .addCase(fetchAllProducts.fulfilled, (state, action) => {
+      //   state.status = "succeeded";
+      //   state.items = action.payload; // Store fetched products
+      // })
+      // .addCase(fetchAllProducts.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   state.error = action.error.message;
+      // })
     //   ---------------
     .addCase(fetchFilteredProducts.pending, (state) => {
         state.status = "loading";

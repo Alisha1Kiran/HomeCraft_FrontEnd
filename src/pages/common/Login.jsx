@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,9 +10,9 @@ import toast from "react-hot-toast"; // Import react-hot-toast
 const Login = () => {
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
-  const { status, error } = useSelector((state) => state.auth);
+  const { status, error, isAuthenticated, user } = useSelector((state) => state.auth);
   const [showLogin, setShowLogin] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -21,25 +21,31 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  // This function now directly handles the form submission
-  const onSubmit = (data) => {
-    setIsSubmitting(true); // Set to true when submitting
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
     try {
-     dispatch(loginUser(data));
+      const response = await dispatch(loginUser(data)).unwrap(); // Wait for login response
       toast.success("Login successful!");
-      navigate('/home');
+
+      // Redirect based on user role
+      if (response?.user?.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/home");
+      }
     } catch (err) {
-      toast.error("Login failed! Please try again.");
+      toast.error(err?.message || "Login failed! Please try again.");
     } finally {
-      setIsSubmitting(false); // Reset after the operation is complete
+      setIsSubmitting(false);
     }
   };
 
-  // Debug: Log to check if form submission is being triggered properly
-  const handleFormSubmit = (data) => {
-    console.log("Form Submitted", data); // This should print in the console if form submission is working
-    onSubmit(data);
-  };
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(user?.role === "admin" ? "/admin" : "/home");
+    }
+  }, [isAuthenticated, user, navigate]);
 
   return (
     <div
@@ -54,10 +60,7 @@ const Login = () => {
           <h1 className="text-4xl font-bold text-center text-white mb-6">User Login</h1>
 
           {error && <p className="text-red-500 text-center text-sm">{error}</p>}
-          <form
-            onSubmit={handleSubmit(handleFormSubmit)} // Using handleFormSubmit to debug
-            className="space-y-4"
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <TextField
               label="email"
               type="email"
@@ -91,7 +94,7 @@ const Login = () => {
             <button
               type="submit"
               className="w-full p-3 bg-sky-700 text-white font-semibold rounded-lg"
-              disabled={isSubmitting || status === "loading"} // Disable button during submission or loading
+              disabled={isSubmitting || status === "loading"}
             >
               {isSubmitting || status === "loading" ? "Logging in..." : "Login"}
             </button>

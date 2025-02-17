@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllProducts,
-  fetchFilteredProducts,
-} from "../../redux/slices/productSlice";
+import {fetchFilteredProducts} from "../../redux/slices/productSlice";
 import ProductCard from "../../components/productComponents/ProductCard";
 import Loading from "../../components/sharedComponents/Loading";
 
@@ -74,7 +71,7 @@ const Products = () => {
             {/* Filter Popup */}
             {showFilter && (
               <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-                <div className="bg-white p-6 rounded-md w-3/4">
+                <div className="glass p-6 rounded-md w-3/4">
                   <h2 className="text-lg font-semibold mb-4">Filters</h2>
                   <p>Filter options go here...</p>
                   <button
