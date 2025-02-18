@@ -17,6 +17,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageUsers from "./pages/admin/ManageUsers";
 import ManageProducts from "./pages/admin/ManageProducts";
+import OrderConfirmationPage from "./pages/user/OrderConfirmationPage";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminProtectedRoute from "./AdminProtectedRoute";
@@ -60,6 +61,7 @@ const AppRoutes = () => {
           element={<ProtectedRoute element={<Wishlist />} />}
         />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/items" element={<Products />} />
         <Route path="/furniture" element={<Products />} />
         <Route path="/accessories" element={<Products />} />

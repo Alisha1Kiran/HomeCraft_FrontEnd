@@ -8,6 +8,7 @@ import userReducer from "../slices/userSlice";
 import adminDashboardReducer from "../slices/adminDashboardSlice";
 import adminUserReducer from "../slices/adminUserSlice";
 import adminProductReducer from "../slices/adminProductSlice";
+import orderReducer from "../slices/orderSlice";
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     cart: cartReducer,
     wishlist: wishlistReducer,
     user: userReducer,
+    order: orderReducer,
     adminDashboard: adminDashboardReducer,
     adminUserManage: adminUserReducer,
     adminProductManage: adminProductReducer

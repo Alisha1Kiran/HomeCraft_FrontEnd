@@ -71,7 +71,13 @@ const cartSlice = createSlice({
     status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
-  reducers: {},
+  reducers: {
+    // Clear cart action
+    clearCart: (state) => {
+      state.cartItems = [];
+      state.total_price = 0;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -116,4 +122,5 @@ const cartSlice = createSlice({
   },
 });
 
+export const { clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
