@@ -5,8 +5,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentForm from "./PaymentForm";
 
-const stripePromise = loadStripe(`${import.meta.env.STRIPE_PUBLIC_KEY}`);
-
 const getGuestId = () => {
   let guestId = localStorage.getItem("guest_id");
   if (!guestId) {
@@ -17,6 +15,8 @@ const getGuestId = () => {
 };
 
 const Cart = () => {
+  console.log(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(`${import.meta.env.VITE_STRIPE_PUBLIC_KEY}`);
   const dispatch = useDispatch();
   const { cartItems = [], total_price = 0 } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
@@ -124,14 +124,14 @@ const Cart = () => {
               <h3 className="text-lg font-semibold">Shipping Address</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
               <select
-                  disabled
+              disabled
                   name="country"
                   className="p-2 border rounded"
-                  value={shippingAddress.country}
+                  value="India"
                   onChange={handleAddressChange}
                 >
                   <option value="United Arab Emirates">United Arab Emirates</option>
-                  <option value="India" selected>India</option>
+                  <option value="India">India</option>
                 </select>
                 <input
                   type="text"

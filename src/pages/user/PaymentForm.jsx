@@ -33,22 +33,29 @@ const PaymentForm = ({ total_price, shippingAddress }) => {
       });
 
       const { clientSecret } = await response.json();
+      console.log("clientSecret : ", clientSecret);
+
+      const cardElement = elements.getElement(CardElement);
+        if (!cardElement) {
+        alert("Card element not found.");
+        return;
+        }
 
       // Step 2: Confirm the payment with Stripe
-      const result = await stripe.confirmCardPayment(clientSecret, {
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
       });
 
-      if (result.error) {
-        console.log(result.error.message);
+      if (error) {
+        console.log(error.message);
         setLoading(false);
-        alert("Payment failed: " + result.error.message);
-      } else if (result.paymentIntent.status === "succeeded") {
+        alert("Payment failed: " + error.message);
+      } else if (paymentIntent.status === "succeeded") {
         // Step 3: Handle successful payment
         const orderData = {
-          paymentIntentId: result.paymentIntent.id,
+          paymentIntentId: paymentIntent.id,
           user_id: user ? user._id : null,
           guest_id: !user ? guestId : null,
           shippingAddress,
