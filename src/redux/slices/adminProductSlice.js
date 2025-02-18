@@ -73,7 +73,7 @@ export const deleteProduct = createAsyncThunk(
   "adminProducts/deleteProduct",
   async (id, { rejectWithValue }) => {
     try {
-      await fetchData(`${API_URL}/deleteProduct/${id}`, {
+      await fetchData(`${API_URL}/products/deleteProduct/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

@@ -46,7 +46,7 @@ export const fetchTotalUsers = createAsyncThunk(
     'adminDashboard/fetchTotalOrders',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/order/totalOrder`, {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders/totalOrder`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
