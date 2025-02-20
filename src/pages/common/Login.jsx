@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <div
-      className={`min-h-screen flex justify-center items-center bg-cover bg-center ${
+      className={`min-h-screen pt-45 flex justify-center items-center bg-cover bg-center ${
         theme === "dark"
           ? "bg-[url('https://as2.ftcdn.net/jpg/05/84/04/65/1000_F_584046587_sX9zY6b5SyYQP7b2MTcxhJf4E3yfvDSW.jpg')]"
           : "bg-[url('https://png.pngtree.com/thumb_back/fh260/background/20230614/pngtree-traditional-outdoor-patio-furniture-set-image_2972138.jpg')]"

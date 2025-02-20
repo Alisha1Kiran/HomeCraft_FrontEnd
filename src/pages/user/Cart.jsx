@@ -56,10 +56,10 @@ const Cart = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto shadow-lg bg-gradient-to-bl from-blue-300 to-blue-950 rounded-lg">
+    <div className="p-6 pt-50 max-w-4xl mx-auto shadow-lg bg-gradient-to-bl from-blue-300 to-blue-950 rounded-lg">
       <h2 className="text-2xl font-bold text-center mb-4">Shopping Cart</h2>
       {cartItems.length === 0 ? (
-        <p className="text-center text-gray-600">Your cart is empty</p>
+        <p className="text-center text-gray-400">Your cart is empty</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-sm">

@@ -10,7 +10,7 @@ const OrderConfirmationPage = () => {
 
   return (
     <div
-      className={`container mx-auto p-8 max-w-4xl ${
+      className={`container pt-50 mx-auto p-8 max-w-4xl ${
         theme === 'dark' ? 'bg-cyan-950 text-white' : 'bg-slate-200 text-gray-800'
       }`}
     >

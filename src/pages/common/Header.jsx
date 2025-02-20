@@ -10,7 +10,7 @@ import HeaderNavEnd from "../../components/sharedComponents/HeaderNavEnd";
 const Header = () => {
   const theme = useSelector((state) => state.theme.theme);
   return (
-    <div>
+    <div className={`fixed top-0 w-full left-0 z-50 ${theme === "dark" ? "bg-gray-800" : "bg-slate-100"}`}>
       <div
         className={`navbar ${theme === "dark" ? "bg-cyan-950" : "bg-slate-200"}`}
       >

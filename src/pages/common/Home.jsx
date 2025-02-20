@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <>
+    <div className="pt-45">
     {/* Section 1 */}
     <div
       className="hero h-90 md:h-80"
@@ -173,7 +173,7 @@ const Home = () => {
     
     </div>
     
-    </>
+    </div>
     
   );
 };

@@ -47,7 +47,7 @@ const UserOrders = () => {
   }
 
   return (
-    <div className={`container mx-auto p-6 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}>
+    <div className={`container mx-auto p-6 pt-50 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}>
       <h2 className="text-3xl font-semibold text-center mb-6">Your Orders</h2>
 
       {userOrders.length === 0 ? (

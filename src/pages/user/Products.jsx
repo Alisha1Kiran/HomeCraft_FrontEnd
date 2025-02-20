@@ -25,7 +25,7 @@ const Products = () => {
   });
 
   return (
-    <div className="mx-auto p-4">
+    <div className="mx-auto px-4 pb-10 pt-50">
       {/* Loading State */}
       {status === "loading" && <Loading />}
 

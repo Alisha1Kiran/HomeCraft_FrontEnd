@@ -84,7 +84,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="container mx-auto p-6 grid grid-cols-1 pt-50 md:grid-cols-2 gap-6">
       {/* Left Side - Image Carousel */}
       <div className="flex flex-col items-center animate-slideInLeft relative">
         <img

@@ -74,7 +74,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 glass rounded-lg shadow-2xl flex flex-col lg:flex-row lg:items-start lg:space-x-12">
+    <div className="max-w-2xl mx-auto p-6 pt-50 glass rounded-lg shadow-2xl flex flex-col lg:flex-row lg:items-start lg:space-x-12">
       {/* Profile Details - Left Side */}
       <div className="flex-1">
         <h2 className="text-2xl font-semibold mb-6">Your Profile</h2>
