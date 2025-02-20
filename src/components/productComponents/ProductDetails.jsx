@@ -42,10 +42,11 @@ const ProductDetails = () => {
   if (error) return <p className="text-red-500">{error}</p>;
   if (!selectedProduct) return <p>No product found.</p>;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const user_id = user ? user._id : null;
     const guest_id = !user ? getGuestId() : null;
-    dispatch(addToCart({ user_id, product_id: selectedProduct._id, quantity: 1, guest_id }));
+    await dispatch(addToCart({ user_id, product_id: selectedProduct._id, quantity: 1, guest_id }));
+    toast.success("Added Item to cart"); 
   };
 
   const handleWishlistClick = async () => {

@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/slices/authSlice";
 
 const AdminHeader = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    navigate("/login"); // Redirect to homepage or login page
+};
 
   return (
     <>
@@ -22,6 +31,8 @@ const AdminHeader = () => {
           <Link to="/admin" className="block py-2 px-4 hover:bg-gray-700 rounded">Dashboard</Link>
           <Link to="/admin/users" className="block py-2 px-4 hover:bg-gray-700 rounded">Manage Users</Link>
           <Link to="/admin/products" className="block py-2 px-4 hover:bg-gray-700 rounded">Manage Products</Link>
+          <Link to="/admin/orders" className="block py-2 px-4 hover:bg-gray-700 rounded">Manage Orders</Link>
+          <button className="block py-2 px-4 hover:bg-gray-700 rounded" onClick={handleLogout}>Logout</button>
         </nav>
       </aside>
 

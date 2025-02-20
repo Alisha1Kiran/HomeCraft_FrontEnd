@@ -21,6 +21,8 @@ import OrderConfirmationPage from "./pages/user/OrderConfirmationPage";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminProtectedRoute from "./AdminProtectedRoute";
+import UserOrders from "./pages/user/UserOrders";
+import ManageOrders from "./pages/admin/ManageOrders";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -60,6 +62,7 @@ const AppRoutes = () => {
           path="/wishlist"
           element={<ProtectedRoute element={<Wishlist />} />}
         />
+        <Route path="/orders" element={<ProtectedRoute element={<UserOrders />} />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/items" element={<Products />} />
@@ -86,6 +89,7 @@ const AppRoutes = () => {
           <Route index element={<AdminDashboard />} />
           <Route path="/admin/users" element={<ManageUsers />} />
           <Route path="/admin/products" element={<ManageProducts />} />
+          <Route path="/admin/orders" element={<ManageOrders />} />
         </Route>
       </Routes>
     </Router>

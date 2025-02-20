@@ -13,16 +13,18 @@ const ProductCard = ({ productData }) => {
   const { user } = useSelector((state) => state.auth); // Cheking User from auth
   const { items: wishlist } = useSelector((state) => state.wishlist);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const user_id = user ? user._id : null;
     const guest_id = !user ? getGuestId() : null;
 
     console.log("User id: ", user_id);
     console.log("Guest id: ", guest_id);
 
-    dispatch(
+    await dispatch(
       addToCart({ user_id, product_id: productData._id, quantity: 1, guest_id })
     );
+
+    toast.success("Added Item to cart");
   };
 
   const [isInWishlist, setIsInWishList] = useState(wishlist.some((item) => item._id === productData._id))

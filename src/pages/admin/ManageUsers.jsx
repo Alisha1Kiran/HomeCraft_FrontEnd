@@ -63,7 +63,7 @@ const ManageUsers = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
+      <h2 className="text-2xl text-cyan-50 font-bold mb-4">Manage Users</h2>
 
       {/* Search Box */}
       <div className="mb-4">
@@ -77,7 +77,7 @@ const ManageUsers = () => {
 
       {/* User Table */}
       <div className="overflow-x-auto">
-        <table className="table w-full bg-base-100 shadow-md rounded-lg">
+        <table className="table w-full bg-cyan-50 shadow-md rounded-lg">
           <thead>
             <tr className="bg-gray-200 text-gray-700">
               <th className="py-3 px-4">Full Name</th>

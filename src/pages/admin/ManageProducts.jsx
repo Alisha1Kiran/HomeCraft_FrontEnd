@@ -80,7 +80,7 @@ const ManageProducts = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Manage Products</h2>
+      <h2 className="text-2xl text-cyan-50 font-bold mb-4">Manage Products</h2>
 
       {/* Search Box and Add New Product Button */}
       <div className="flex justify-between items-center mb-4">
@@ -99,7 +99,7 @@ const ManageProducts = () => {
 
       {/* Product Table */}
       <div className="overflow-x-auto">
-        <table className="table w-full bg-base-100 shadow-md rounded-lg">
+        <table className="table w-full bg-cyan-50 shadow-md rounded-lg">
           <thead>
             <tr className="bg-gray-200 text-gray-700">
               <th className="py-3 px-4">Image</th>

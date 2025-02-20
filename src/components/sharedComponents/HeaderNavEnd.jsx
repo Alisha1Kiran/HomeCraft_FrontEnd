@@ -27,13 +27,13 @@ const HeaderNavEnd = () => {
 
   return (
     <div className="navbar-end">
-      <div className="hidden md:px-3 md:flex flex-col justify-center items-center">
+      <div className="md:px-3 md:flex flex-col justify-center items-center">
         {!user ? (
           <>
             <Link to="/login">
               <User />
             </Link>
-            <Link to="/login" className="font-light">
+            <Link to="/login" className="hidden font-light md:block">
               Login
             </Link>
           </>
@@ -55,7 +55,7 @@ const HeaderNavEnd = () => {
                 <Link to="/my-profile">Profile</Link>
               </li>
               <li>
-                <a>Orders</a>
+                <Link to="/orders">Orders</Link>
               </li>
               <li>
                 <button onClick={handleLogout}>Logout</button>
@@ -65,7 +65,7 @@ const HeaderNavEnd = () => {
         )}
       </div>
       <div className="flex px-3 flex-col justify-center items-center">
-        <Link to="/wishlist">
+        <Link to="/wishlist" className="hidden font-light md:block">
           <Heart />
         </Link>
         <Link to="/wishlist" className="hidden font-light md:block">
