@@ -118,7 +118,7 @@ const ManageProducts = () => {
               </tr>
             ) : (
               products.map((product) => (
-                <tr key={product._id} className="border-b">
+                <tr key={product._id} className="border-b text-gray-700">
                   <td className="py-3 px-4">
                     {product.images ? (
                       <img

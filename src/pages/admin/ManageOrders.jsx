@@ -80,9 +80,9 @@ const ManageOrders = () => {
           </thead>
           <tbody>
             {allOrders.map((order) => (
-              <tr key={order._id} className="border-b">
+              <tr key={order._id} className="border-b text-gray-700">
                 <td className="py-3 px-4">{order._id}</td>
-                <td className="py-3 px-4">{order.user_id.fullName}</td>
+                <td className="py-3 px-4">{order.user_id?.fullName || "Guest"}</td>
                 <td className="py-3 px-4">{order.totalPrice}</td>
                 <td className="py-3 px-4">{order.status}</td>
                 <td className="py-3 px-4 flex justify-center space-x-2">
