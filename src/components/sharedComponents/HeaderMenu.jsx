@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate} from "react-router-dom";
 import { logoutUser } from "../../redux/slices/authSlice";
@@ -7,6 +7,8 @@ const HeaderMenue = ({ isMobile, theme }) => {
   const dispatch = useDispatch();
 const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  const [activeMenu, setActiveMenu] = useState(null);
 
   const menuBackgroundColor = theme === "dark" ? "bg-gray-800" : "bg-white";
   const menuHoverBackgroundColor =
@@ -126,13 +128,18 @@ const navigate = useNavigate();
               <Link
                 to={item.path}
                 className="text-lg font-semibold block px-2 py-2"
+                onMouseEnter={() => setActiveMenu(index)}
+    onMouseLeave={() => setActiveMenu(null)}
               >
                 {item.label}
               </Link>
 
               {/* Submenu (Hidden by Default, Visible on Hover) */}
+              {activeMenu === index && (
               <div
-                className={`absolute left-0 top-full hidden group-hover:block shadow-lg z-50 p-2 rounded-md w-48 ${menuBackgroundColor}`}
+                className={`absolute left-0 top-full shadow-lg z-50 p-2 rounded-md w-48 ${menuBackgroundColor}`}
+                onMouseEnter={() => setActiveMenu(index)}
+        onMouseLeave={() => setActiveMenu(null)}
               >
                 <ul className="flex flex-col space-y-1">
                   {item.subItems.map((subItem, subIndex) => (
@@ -147,6 +154,7 @@ const navigate = useNavigate();
                   ))}
                 </ul>
               </div>
+              )}
             </div>
           ))}
         </div>
