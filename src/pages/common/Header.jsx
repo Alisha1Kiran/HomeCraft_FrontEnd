@@ -10,9 +10,9 @@ import HeaderNavEnd from "../../components/sharedComponents/HeaderNavEnd";
 const Header = () => {
   const theme = useSelector((state) => state.theme.theme);
   return (
-    <div className={`fixed top-0 w-full left-0 z-50 ${theme === "dark" ? "bg-gray-800" : "bg-slate-100"}`}>
+    <div className={`fixed top-0 w-full left-0 z-50 ${theme === "dark" ? "bg-gradient-to-l from-cyan-950 to-cyan-800" : "bg-neutral-50"}`}>
       <div
-        className={`navbar ${theme === "dark" ? "bg-cyan-950" : "bg-slate-200"}`}
+        className={`navbar ${theme === "dark" ? " bg-gratient-to-l from-cyan-950 to-cyan-800" : "bg-neutral-50"}`}
       >
         <div className="navbar-start md:hidden">
           {/*Fixed Drawer */}
@@ -53,7 +53,7 @@ const Header = () => {
         </div>
 
         <div className="navbar-center md:navbar-start">
-          <Link to="/" className="btn btn-ghost text-xl font-serif">
+          <Link to="/" className="btn btn-ghost text-xl underline font-serif text-yellow-600">
             Home Craft
           </Link>
           <Theme
@@ -84,7 +84,7 @@ const Header = () => {
         <HeaderMenue isMobile={false} theme={theme}/>
       </div>
 
-      <div className="bg-orange-300 p-1">
+      <div className="bg-yellow-600 p-1">
         <div className="flex justify-center border-2 border-amber-50">
           Our 10% offer is extended
         </div>

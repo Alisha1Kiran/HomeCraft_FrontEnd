@@ -10,6 +10,7 @@ const Products = () => {
   const dispatch = useDispatch();
   const { items, status, error } = useSelector((state) => state.products);
   const [sortOrder, setSortOrder] = useState(""); // State for sorting
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     if (searchTerm1 || searchTerm2) {
@@ -37,7 +38,7 @@ const Products = () => {
         <>
           {/* Heading */}
           <div className="flex justify-between items-center mb-6">
-            <h1 className="border-t-4 border-b-4 px-4 py-1 text-2xl font-semibold capitalize">
+            <h1 className={`border-t-4 border-b-4 px-4 py-1 text-2xl font-semibold capitalize ${theme === "dark" ? "text-gray-200" : "text-gray-700"}`}>
               {searchTerm2 ? searchTerm2 : searchTerm1}
             </h1>
 

@@ -15,6 +15,7 @@ const ProductDetails = () => {
   const { selectedProduct, status, error } = useSelector((state) => state.products);
   const { user } = useSelector((state) => state.auth);
   const { items: wishlist } = useSelector((state) => state.wishlist);
+  const theme = useSelector((state) => state.theme.theme);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isInWishlist, setIsInWishlist] = useState(false); // Moved here to ensure it's always executed
@@ -123,13 +124,13 @@ const ProductDetails = () => {
       </div>
 
       {/* Right Side - Product Details */}
-      <div className="space-y-4 animate-slideInRight">
-        <h1 className="text-3xl font-bold capitalize">{selectedProduct.name}</h1>
-        <p className="text-lg font-semibold text-primary">{selectedProduct.price}/-</p>
+      <div className={`space-y-4 animate-slideInRight ${theme === "dark" ? "text-gray-200" : "text-gray-700"}`}>
+        <h1 className="text-2xl font-bold capitalize">{selectedProduct.name}</h1>
+        <p className="text-2xl font-semibold">Rs. {selectedProduct.price}</p>
 
         <div className="flex gap-3 items-center">
           <button
-            className="w-full py-2 bg-sky-700 font-bold text-lg cursor-pointer"
+            className="w-full py-2 bg-sky-700 font-bold text-lg cursor-pointer text-gray-200"
             onClick={handleAddToCart}
           >
             Add to cart
