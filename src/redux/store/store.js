@@ -9,6 +9,7 @@ import adminDashboardReducer from "../slices/adminDashboardSlice";
 import adminUserReducer from "../slices/adminUserSlice";
 import adminProductReducer from "../slices/adminProductSlice";
 import orderReducer from "../slices/orderSlice";
+import reviewReducer from "../slices/reviewSlice";
 
 const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ const store = configureStore({
     order: orderReducer,
     adminDashboard: adminDashboardReducer,
     adminUserManage: adminUserReducer,
-    adminProductManage: adminProductReducer
+    adminProductManage: adminProductReducer,
+    review: reviewReducer
   },
 });
 

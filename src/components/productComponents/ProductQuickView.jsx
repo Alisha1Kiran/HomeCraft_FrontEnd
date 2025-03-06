@@ -11,6 +11,7 @@ const ProductQuickView = ({ productData, closeModal }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { items: wishlist } = useSelector((state) => state.wishlist);
+  const theme = useSelector((state) => state.theme.theme);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isInWishlist, setIsInWishlist] = useState(false);
@@ -125,7 +126,7 @@ const ProductQuickView = ({ productData, closeModal }) => {
           {/* Product Specifications */}
           <div className="mt-4 space-y-2">
             <h5 className="font-semibold text-lg">Specifications:</h5>
-            <ul className="list-disc pl-6 text-gray-300">
+            <ul className={`list-disc pl-6 ${theme === "dark" ? "text-gray-300" : "text-gray-700"} `}>
               {Object.entries(productData.specifications).map(([key, value]) => (
                 <li key={key}>
                   <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value}

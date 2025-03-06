@@ -23,10 +23,29 @@
   }
 }
 
+@keyframes slideInLeftMove {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+}
+
+/* Normal slide-in animation */
 .animate-slideInLeft {
   animation: slideInLeft 0.5s ease-in-out forwards;
 }
 
 .animate-slideInRight {
   animation: slideInRight 0.5s ease-in-out forwards;
+}
+
+/* Continuous left to right animation for medium and larger screens */
+@media (min-width: 768px) {  /* This is for medium screens and above */
+  .md\:animate-slideInLeftMove {
+    animation: slideInLeftMove 5s linear infinite; /* Continuous animation */
+  }
 }
