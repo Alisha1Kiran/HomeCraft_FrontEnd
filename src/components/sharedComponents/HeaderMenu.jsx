@@ -30,7 +30,7 @@ const HeaderMenue = ({ isMobile, theme }) => {
       label: "Living Room",
       path: "/furniture/living room",
       subItems: [
-        { label: "Sofa", path: "/furniture/living-room/sofa" },
+        { label: "Sofa", path: "/furniture/living-room/sofas" },
         { label: "Tv Unit", path: "/furniture/living-room/tv-unit" },
         { label: "Coffee Table", path: "/furniture/living-room/coffee-tables" },
       ],
