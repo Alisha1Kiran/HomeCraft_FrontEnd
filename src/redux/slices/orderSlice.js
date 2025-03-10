@@ -130,7 +130,7 @@ const orderSlice = createSlice({
       })
 
       // Update Order Status (Admin)
-      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+      .addCase(updateOrderStatus.fulfilled, (state, action) => { 
         state.allOrders = state.allOrders.map((order) =>
           order._id === action.payload._id ? action.payload : order
         );

@@ -65,7 +65,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-semibold text-center mb-6">
+      <h1 className="text-2xl text-cyan-50 font-semibold text-center mb-6">
         Admin Dashboard
       </h1>
 
@@ -106,7 +106,9 @@ const AdminDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {/* User Growth Chart */}
         <div className="bg-cyan-50 p-6 rounded-lg shadow-lg">
-          <h2 className="text-gray-500 text-xl font-semibold mb-4">User Growth Over Time</h2>
+          <h2 className="text-gray-500 text-xl font-semibold mb-4">
+            User Growth Over Time
+          </h2>
           {loading ? (
             <p className="text-gray-500 text-center">Loading Chart...</p>
           ) : error.userGrowth ? (
@@ -146,35 +148,43 @@ const AdminDashboard = () => {
 
         {/* Sales Trend Chart */}
         <div className="bg-cyan-50 p-6 rounded-lg shadow-lg">
-          <h2 className="text-gray-500 text-xl font-semibold mb-4">Sales Trend Over Time</h2>
+          <h2 className="text-gray-500 text-xl font-semibold mb-4">
+            Sales Trend Over Time
+          </h2>
           {loading ? (
             <p className="text-gray-500 text-center">Loading Chart...</p>
           ) : error.salesTrend ? (
             <p className="text-red-500">{error.salesTrend}</p>
           ) : (
             <ResponsiveContainer width="100%" height={300}>
-  <BarChart data={salesTrend} margin={{ top: 10, right: 30, left: 10, bottom: 10 }}>
-    <CartesianGrid strokeDasharray="4 4" stroke="#e0e0e0" />
-    <XAxis 
-      dataKey="date" 
-      tick={{ fill: "#4A5568", fontSize: 12 }} 
-      padding={{ left: 10, right: 10 }} 
-    />
-    <YAxis tick={{ fill: "#4A5568", fontSize: 12 }} />
-    <Tooltip 
-      contentStyle={{ backgroundColor: "#1E293B", color: "#F8FAFC", borderRadius: "5px" }} 
-      labelStyle={{ fontWeight: "bold", color: "#F8FAFC" }} 
-    />
-    <Legend wrapperStyle={{ paddingTop: 10, fontSize: "14px" }} />
-    <Bar 
-      dataKey="sales" 
-      fill="#16A34A" 
-      barSize={40} 
-      radius={[5, 5, 0, 0]} 
-    />
-  </BarChart>
-</ResponsiveContainer>
-
+              <BarChart
+                data={salesTrend}
+                margin={{ top: 10, right: 30, left: 10, bottom: 10 }}
+              >
+                <CartesianGrid strokeDasharray="4 4" stroke="#e0e0e0" />
+                <XAxis
+                  dataKey="date"
+                  tick={{ fill: "#4A5568", fontSize: 12 }}
+                  padding={{ left: 10, right: 10 }}
+                />
+                <YAxis tick={{ fill: "#4A5568", fontSize: 12 }} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1E293B",
+                    color: "#F8FAFC",
+                    borderRadius: "5px",
+                  }}
+                  labelStyle={{ fontWeight: "bold", color: "#F8FAFC" }}
+                />
+                <Legend wrapperStyle={{ paddingTop: 10, fontSize: "14px" }} />
+                <Bar
+                  dataKey="sales"
+                  fill="#16A34A"
+                  barSize={40}
+                  radius={[5, 5, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           )}
         </div>
       </div>

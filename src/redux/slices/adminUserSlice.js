@@ -39,7 +39,8 @@ export const updateUserDetails = createAsyncThunk(
     if (!response.ok) {
       throw new Error("Failed to update user data");
     }
-    return await response.json();
+    let data = await response.json();
+    return data.data;
   }
 );
 
@@ -58,7 +59,8 @@ export const deleteUser = createAsyncThunk(
     if (!response.ok) {
       throw new Error("Failed to delete user");
     }
-    return await response.json();
+    let data = await response.json();
+    return data.data;
   }
 );
 
@@ -105,12 +107,15 @@ const adminUserSlice = createSlice({
       })
       .addCase(updateUserDetails.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const updatedUserIndex = state.users.findIndex(
-          (user) => user.id === action.payload.id
+        // const updatedUserIndex = state.users.findIndex(
+        //   (user) => user.id === action.payload.id
+        // );
+        // if (updatedUserIndex !== -1) {
+        //   state.users[updatedUserIndex] = action.payload;
+        // }
+        state.users = state.users.map((user) =>
+          user._id === action.payload._id ? action.payload : user
         );
-        if (updatedUserIndex !== -1) {
-          state.users[updatedUserIndex] = action.payload;
-        }
       })
       .addCase(updateUserDetails.rejected, (state, action) => {
         state.status = "failed";
