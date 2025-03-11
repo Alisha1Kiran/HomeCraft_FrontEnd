@@ -30,18 +30,18 @@ const HeaderMenue = ({ isMobile, theme }) => {
       label: "Living Room",
       path: "/furniture/living room",
       subItems: [
-        { label: "Sofa", path: "/furniture/living-room/sofas" },
-        { label: "Tv Unit", path: "/furniture/living-room/tv-unit" },
-        { label: "Coffee Table", path: "/furniture/living-room/coffee-tables" },
+        { label: "Sofa", path: "/furniture/living room/sofas" },
+        { label: "Tv Unit", path: "/furniture/living room/tv-unit" },
+        { label: "Coffee Table", path: "/furniture/living room/coffee-tables" },
       ],
     },
     {
       label: "Dining Room",
       path: "/furniture/dining room",
       subItems: [
-        { label: "Dining Set", path: "/furniture/living-room/dining-set" },
-        { label: "Tables", path: "/furniture/living-room/tables" },
-        { label: "Chairs", path: "/furniture/living-room/chairs" },
+        { label: "Dining Set", path: "/furniture/living room/dining-set" },
+        { label: "Tables", path: "/furniture/living room/tables" },
+        { label: "Chairs", path: "/furniture/living room/chairs" },
       ],
     },
     {
