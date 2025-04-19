@@ -13,19 +13,27 @@ const Products = () => {
   console.log("error : ", error);
   const [sortOrder, setSortOrder] = useState(""); // State for sorting
   const theme = useSelector((state) => state.theme.theme);
+  const [visibleCount, setVisibleCount] = useState(8);
 
   useEffect(() => {
     if (searchTerm1 || searchTerm2) {
       dispatch(fetchFilteredProducts({ searchTerm1, searchTerm2 }));
+      setVisibleCount(8);
     }
   }, [dispatch, searchTerm1, searchTerm2]);
 
   // Sorting Logic
-  const sortedProducts = [...(items?.products || [])].sort((a, b) => {
-    if (sortOrder === "lowToHigh") return a.price - b.price;
-    if (sortOrder === "highToLow") return b.price - a.price;
-    return 0;
-  });
+  const sortedProducts = [...(items?.products || [])]
+    .sort((a, b) => {
+      if (sortOrder === "lowToHigh") return a.price - b.price;
+      if (sortOrder === "highToLow") return b.price - a.price;
+      return 0;
+    })
+    .slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 8);
+  };
 
   return (
     <div className="mx-auto px-4 pb-10 pt-50">
@@ -74,6 +82,17 @@ const Products = () => {
               <ProductCard key={productData._id} productData={productData} />
             ))}
           </div>
+
+          {items?.products?.length > visibleCount && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={handleLoadMore}
+                className="px-6 py-2 btn btn-primary text-white rounded hover:bg-blue-700 transition"
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </>
       ) : (
         status === "succeeded" && <NoProducts />
