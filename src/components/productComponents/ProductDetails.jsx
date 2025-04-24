@@ -6,7 +6,6 @@ import { addToCart } from "../../redux/slices/cartSlice";
 import {
   addToWishlist,
   removeFromWishlist,
-  fetchWishlist,
 } from "../../redux/slices/wishlistSlice";
 import { fetchProductByName } from "../../redux/slices/productSlice";
 import {
@@ -21,20 +20,19 @@ import Review from "./Review";
 
 const ProductDetails = () => {
   const { productName } = useParams();
-  console.log("productName : ", productName);
   const dispatch = useDispatch();
+
   const { selectedProduct, status, error } = useSelector(
     (state) => state.products
   );
-  const { reviews, loadingReview } = useSelector((state) => state.review);
+  const { reviews } = useSelector((state) => state.review);
   const { user } = useSelector((state) => state.auth);
   const { items: wishlist } = useSelector((state) => state.wishlist);
   const theme = useSelector((state) => state.theme.theme);
 
-  const averageRating = selectedProduct?.ratings || 0;
-
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isInWishlist, setIsInWishlist] = useState(false); // Moved here to ensure it's always executed
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [lastFetchedId, setLastFetchedId] = useState(null);
 
   useEffect(() => {
     if (productName) {
@@ -49,16 +47,12 @@ const ProductDetails = () => {
   }, [selectedProduct]);
 
   useEffect(() => {
-    if (selectedProduct?._id) {
-      // If reviews are already fetched and match the selected product, no need to dispatch again
-      if (!reviews?.length || reviews[0]?.product_id !== selectedProduct._id) {
-        dispatch(resetReviews()); // Reset reviews if the selected product changes
-        dispatch(fetchProductReviews(selectedProduct._id)); // Fetch new reviews
-      }
+    if (selectedProduct?._id && selectedProduct._id !== lastFetchedId) {
+      dispatch(resetReviews());
+      dispatch(fetchProductReviews(selectedProduct._id));
+      setLastFetchedId(selectedProduct._id);
     }
-  }, [dispatch, selectedProduct?._id, reviews?.length]);
-
-  console.log("Review : ", reviews);
+  }, [dispatch, selectedProduct?._id, lastFetchedId]);
 
   useEffect(() => {
     if (selectedProduct) {
@@ -68,7 +62,6 @@ const ProductDetails = () => {
     }
   }, [wishlist, selectedProduct]);
 
-  // ** Move loading and error checks after hooks to avoid breaking hook order **
   if (status === "loading") return <p>Loading...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!selectedProduct) return <p>No product found.</p>;
@@ -76,6 +69,7 @@ const ProductDetails = () => {
   const handleAddToCart = async () => {
     const user_id = user ? user._id : null;
     const guest_id = !user ? getGuestId() : null;
+
     await dispatch(
       addToCart({
         user_id,
@@ -123,7 +117,7 @@ const ProductDetails = () => {
   return (
     <>
       <div className="container mx-auto p-6 grid grid-cols-1 pt-50 md:grid-cols-2 gap-6">
-        {/* Left Side - Image Carousel */}
+        {/* Left - Image Carousel */}
         <div className="flex flex-col items-center animate-slideInLeft relative">
           <img
             src={selectedProduct.images[currentIndex].url}
@@ -131,7 +125,6 @@ const ProductDetails = () => {
             className="w-full max-w-md rounded-lg shadow-md object-cover"
           />
 
-          {/* Carousel Buttons */}
           <button
             className="absolute left-3 top-1/2 transform -translate-y-1/2 glass text-white p-2 rounded-l-full"
             onClick={handlePrevious}
@@ -145,15 +138,13 @@ const ProductDetails = () => {
             <ChevronRight />
           </button>
 
-          {/* Thumbnail Selection */}
           <div className="flex gap-2 mt-4">
             {selectedProduct.images.map((image, index) => (
               <img
                 key={image._id}
                 src={image.url}
                 alt="Thumbnail"
-                className={`w-16 h-16 object-cover rounded cursor-pointer border-2 
-                ${
+                className={`w-16 h-16 object-cover rounded cursor-pointer border-2 ${
                   index === currentIndex ? "border-primary" : "border-gray-300"
                 }`}
                 onClick={() => setCurrentIndex(index)}
@@ -162,7 +153,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Right Side - Product Details */}
+        {/* Right - Product Info */}
         <div
           className={`space-y-4 animate-slideInRight ${
             theme === "dark" ? "text-gray-200" : "text-gray-700"
@@ -186,6 +177,7 @@ const ProductDetails = () => {
               </a>
             )}
           </div>
+
           <p className="text-2xl font-semibold">Rs. {selectedProduct.price}</p>
 
           <div className="flex gap-3 items-center">
@@ -202,7 +194,7 @@ const ProductDetails = () => {
             >
               <Heart
                 className={`w-6 h-6 ${
-                  isInWishlist ? " text-red-500" : "text-gray-500"
+                  isInWishlist ? "text-red-500" : "text-gray-500"
                 }`}
                 fill={isInWishlist ? "red" : "none"}
               />
@@ -239,6 +231,7 @@ const ProductDetails = () => {
           </table>
         </div>
       </div>
+
       <div id="reviews">
         <Review />
       </div>

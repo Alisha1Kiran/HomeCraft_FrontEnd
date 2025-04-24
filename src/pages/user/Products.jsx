@@ -5,12 +5,12 @@ import { fetchFilteredProducts } from "../../redux/slices/productSlice";
 import ProductCard from "../../components/productComponents/ProductCard";
 import NoProducts from "./NoProducts";
 import Loading from "../../components/sharedComponents/Loading";
+import { resetProductState } from "../../redux/slices/productSlice";
 
 const Products = () => {
   const { searchTerm1, searchTerm2 } = useParams();
   const dispatch = useDispatch();
   const { items, status, error } = useSelector((state) => state.products);
-  console.log("error : ", error);
   const [sortOrder, setSortOrder] = useState(""); // State for sorting
   const theme = useSelector((state) => state.theme.theme);
   const [visibleCount, setVisibleCount] = useState(8);
@@ -20,6 +20,10 @@ const Products = () => {
       dispatch(fetchFilteredProducts({ searchTerm1, searchTerm2 }));
       setVisibleCount(8);
     }
+
+    return () => {
+      dispatch(resetProductState()); // 👈 this will run when component unmounts
+    };
   }, [dispatch, searchTerm1, searchTerm2]);
 
   // Sorting Logic
@@ -66,7 +70,11 @@ const Products = () => {
 
             {/* Sort Dropdown */}
             <select
-              className="border p-2 rounded-md"
+              className={`border p-2 rounded-md ${
+                theme === "dark"
+                  ? "bg-gray-800 text-white border-gray-600"
+                  : "bg-white text-gray-800 border-gray-300"
+              }`}
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >

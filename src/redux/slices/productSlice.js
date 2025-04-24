@@ -73,7 +73,13 @@ const productSlice = createSlice({
     status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetProductState: (state) => {
+      state.status = "idle";
+      state.error = null;
+      state.items = [];
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -119,4 +125,5 @@ const productSlice = createSlice({
   },
 });
 
+export const { resetProductState } = productSlice.actions;
 export default productSlice.reducer;
