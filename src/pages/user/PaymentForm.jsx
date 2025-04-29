@@ -50,7 +50,7 @@ const PaymentForm = ({ total_price, shippingAddress }) => {
         payment_method: {
           card: cardNumberElement,
           billing_details: {
-            name: user ? user.name : "Guest",
+            name: user ? user.fullName : "Guest",
           },
         },
       });
@@ -99,11 +99,11 @@ const PaymentForm = ({ total_price, shippingAddress }) => {
       <div className="w-full md:w-1/3 p-4 bg-blue-100 rounded-md">
         <h3 className="text-l font-bold text-gray-800">Shipping Address</h3>
         <div className="mt-4">
-          <p className="text-sm text-gray-600">Name: {user ? user.name : "Guest"}</p>
+          <p className="text-sm text-gray-600">Name: {user ? user.fullName : "Guest"}</p>
           <p className="text-sm text-gray-600">Street: {shippingAddress.street}</p>
           <p className="text-sm text-gray-600">City: {shippingAddress.city}</p>
           <p className="text-sm text-gray-600">State: {shippingAddress.state}</p>
-          <p className="text-sm text-gray-600">Emirate: {shippingAddress.emirate}</p>
+          {/* <p className="text-sm text-gray-600">Emirate: {shippingAddress.emirate}</p> */}
           <p className="text-sm text-gray-600">Zip: {shippingAddress.zip}</p>
           <p className="text-sm text-gray-600">Country: {shippingAddress.country}</p>
         </div>
